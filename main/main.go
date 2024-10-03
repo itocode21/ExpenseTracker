@@ -111,6 +111,9 @@ func main() {
 		return
 	}
 
+	// --------------------------------------------------
+	// add expense
+
 	command := os.Args[1]
 	switch command {
 	case "add":
@@ -126,6 +129,22 @@ func main() {
 		}
 		addExpense(text, amount)
 
+	// --------------------------------------------------
+	// delete expense by ID
+
+	case "delete":
+		id, _ := strconv.Atoi(os.Args[2])
+		deleteExpense(id)
+
+	// --------------------------------------------------
+	// list summary all expenses
+
+	case "summary":
+		showSummary()
+
+	// --------------------------------------------------
+	// list expense for n-month
+
 	case "month":
 		if len(os.Args) < 3 {
 			fmt.Println("Usage: month [month number]")
@@ -138,13 +157,12 @@ func main() {
 		}
 		showExpenceMoth(time.Month(monthNum))
 
-	case "delete":
-		id, _ := strconv.Atoi(os.Args[2])
-		deleteExpense(id)
-	case "summary":
-		showSummary()
+	// --------------------------------------------------
+	// list all expense
+
 	case "list":
 		listExpense()
+
 	default:
 		fmt.Println("Invalid command")
 	}
