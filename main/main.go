@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -104,6 +105,15 @@ func listExpense() {
 	}
 }
 
+// --------------------------------------------------
+// download json
+
+func handleFile(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Disposition", "attachment; filename=expense.json")
+	w.Header().Set("Content-Type", "application/json")
+	http.ServeFile(w, r, "expense.json")
+}
+
 func main() {
 	loadExpense()
 	if len(os.Args) < 2 {
@@ -162,6 +172,15 @@ func main() {
 
 	case "list":
 		listExpense()
+
+	// --------------------------------------------------
+	// download json
+
+	case "export":
+		http.HandleFunc("/download", handleFile)
+
+		fmt.Println("Server running on http://localhost:8080/download")
+		http.ListenAndServe(":8080", nil)
 
 	default:
 		fmt.Println("Invalid command")
