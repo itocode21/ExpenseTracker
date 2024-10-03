@@ -50,7 +50,7 @@ func addExpense(text string, amount int) {
 
 	expenses = append(expenses, expense)
 	saveExpense()
-	fmt.Printf("Expense added successfully [ID %d]", expense.ID)
+	fmt.Printf("Expense added successfully [ID: %d]", expense.ID)
 }
 
 //--------------------------------------------------
@@ -61,19 +61,44 @@ func deleteExpense(id int) {
 		if expense.ID == id {
 			expenses = append(expenses[:i], expenses[i+1:]...)
 			saveExpense()
+			fmt.Printf("Delete expense successfully [ID: %d]", expense.ID)
 			return
 		}
 	}
+}
+
+//--------------------------------------------------
+// show summary
+
+func showSummary() {
+	var totalAmount int
+	for _, expense := range expenses {
+		totalAmount += expense.Amount
+	}
+	fmt.Printf("Total expenses: $%d\n", totalAmount)
+}
+
+//--------------------------------------------------
+// show expense for n-month
+
+func showExpenceMoth(month time.Month) {
+	var totalAmount int
+	for _, expense := range expenses {
+		if expense.ExpenseTime.Month() == month {
+			totalAmount += expense.Amount
+		}
+	}
+	fmt.Printf("Total expenses for %s: $%d\n", month.String(), totalAmount)
 }
 
 // --------------------------------------------------
 // list all expense
 
 func listExpense() {
-	fmt.Println("# ID  Date       Description  Amount")
+	fmt.Println("# ID  Date       Description          Amount")
 	for _, expense := range expenses {
-		fmt.Printf("# %d   %s  %s       $%d\n",
-			expense.ID, expense.ExpenseTime.Format("2006-01-02"),
+		fmt.Printf("# %d   %s  %-20s  $%d\n",
+			expense.ID, expense.ExpenseTime.Format("2024-10-03"),
 			expense.Description,
 			expense.Amount)
 	}
@@ -100,9 +125,24 @@ func main() {
 			return
 		}
 		addExpense(text, amount)
+
+	case "month":
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: month [month number]")
+			return
+		}
+		monthNum, err := strconv.Atoi(os.Args[2])
+		if err != nil || monthNum < 1 || monthNum > 12 {
+			fmt.Println("Invalid month number. It must be a number between 1 and 12.")
+			return
+		}
+		showExpenceMoth(time.Month(monthNum))
+
 	case "delete":
 		id, _ := strconv.Atoi(os.Args[2])
 		deleteExpense(id)
+	case "summary":
+		showSummary()
 	case "list":
 		listExpense()
 	default:
