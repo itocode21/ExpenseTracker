@@ -2,10 +2,6 @@
 
 My First solution for the  [task-tracker](https://roadmap.sh/projects/expense-tracker) challenge from [roadmap.sh](https://roadmap.sh/).
 
-# ID  Date       Description          Amount
-# 1   30353-100-01  buy cofe              $3
-# 2   30353-100-01  buy dinner            $5
-# 3   30354-100-01  buy  pencil           $1
 
 ## How to run
 
@@ -34,7 +30,7 @@ go build main.go
 # To delete expense
 ./main delete n #|n --> expense id
 
-# To delete a task
+# To list summaty expense
 ./main summary #|list summary all expense
 
 # To list
