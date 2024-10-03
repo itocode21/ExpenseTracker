@@ -1,20 +1,14 @@
 [
 	{
 		"id": 1,
-		"text": "buy cofe",
-		"amount": 3,
-		"expense_time": "2024-10-03T13:53:43.938137+03:00"
+		"text": "buy some",
+		"amount": 10,
+		"expense_time": "2024-10-03T15:39:36.1154867+03:00"
 	},
 	{
 		"id": 2,
-		"text": "buy dinner",
-		"amount": 5,
-		"expense_time": "2024-10-03T13:53:52.3989224+03:00"
-	},
-	{
-		"id": 3,
-		"text": "buy  pencil",
-		"amount": 1,
-		"expense_time": "2024-10-03T13:54:06.5170788+03:00"
+		"text": "buy  cofe",
+		"amount": 9,
+		"expense_time": "2024-10-03T15:40:46.575153+03:00"
 	}
 ]

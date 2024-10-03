@@ -99,7 +99,7 @@ func listExpense() {
 	fmt.Println("# ID  Date       Description          Amount")
 	for _, expense := range expenses {
 		fmt.Printf("# %d   %s  %-20s  $%d\n",
-			expense.ID, expense.ExpenseTime.Format("2024-10-03"),
+			expense.ID, expense.ExpenseTime.Format("2006-01-02"),
 			expense.Description,
 			expense.Amount)
 	}
